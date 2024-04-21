@@ -1,9 +1,7 @@
 body{
-    background-image: linear-gradient(to right top,#D91B23,#124FEB);
-    height: 100vh;
+    background: linear-gradient(to right top,#D91B23,#124FEB);
 }
 .container {
-    align-items: center;
 }
 
 .search {
@@ -60,9 +58,11 @@ body{
     border-radius: 4px;
 }
 
-.content{
+.search-results{
     background-color: white;
     width: 100%;
+    min-height: 100vh;
+    border-radius: 5px;
 }
 
 @media (max-width:800px) {
