@@ -1,5 +1,5 @@
+import { useState, useEffect } from 'react';
 import GifComponent from "../components/GifComponent.jsx";
-import { useEffect, useState } from "react";
 import axios from '../services/axios'; // Import the Axios instance
 
 export default function Search() {
@@ -21,7 +21,7 @@ export default function Search() {
                     offset: (currentPage - 1) * itemsPerPage // Calculate offset based on current page
                 },
             });
-            setGifs(response.data.data); // Update state with the fetched data
+            setGifs(response.data.data.map((gif, index) => ({ ...gif, uniqueId: `${gif.id}_${index}` }))); // Update state with the fetched data and generate unique IDs
         } catch (error) {
             console.error('Error fetching data:', error);
         }
@@ -46,7 +46,10 @@ export default function Search() {
                                     type="text"
                                     placeholder="Search for GIFs"
                                     value={query}
-                                    onChange={handleInputChange}
+                                    onChange={(e) => {
+                                        handleInputChange(e);
+                                        setCurrentPage(1);
+                                    }}
                                 />
                             </div>
                         </div>
@@ -54,20 +57,20 @@ export default function Search() {
                 </div>
             </div>
             <div className="search-results">
-                <div className="row">
-                    {gifs.map((gif,index) => (
-                        <div className="col-md-4" key={index}>
+                <div id="images-wrapper">
+                    {gifs.map((gif) => (
+                        <div key={gif.id}>
                             <GifComponent gif={gif} />
                         </div>
                     ))}
                 </div>
-                <div className="d-flex justify-content-center my-3">
+                <div className="d-flex justify-content-center py-3">
                     {/* Previous page button */}
-                    <button className="btn btn-primary" onClick={() => handlePageChange(currentPage - 1)} disabled={currentPage === 1}>Previous</button>
-                    <div className="card">
+                    <button className="btn btn-primary btn-sm" onClick={() => handlePageChange(currentPage - 1)} disabled={currentPage === 1}>Previous</button>
+                    <div className="border">
                         <span className="card-body">{currentPage}</span>
                     </div>
-                    <button className="btn btn-primary" onClick={() => handlePageChange(currentPage + 1)} disabled={gifs.length < itemsPerPage}>Next</button>
+                    <button className="btn btn-primary btn-sm" onClick={() => handlePageChange(currentPage + 1)} disabled={gifs.length < itemsPerPage}>Next</button>
                 </div>
             </div>
         </div>
