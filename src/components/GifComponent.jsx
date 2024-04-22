@@ -23,13 +23,14 @@ function GifComponent({ gif, status }) {
         window.dispatchEvent(new Event('localStorageChange'));
     };
 
+
     return (
         <div className="card border-white">
-            <img className="card-img" src={gif.images.downsized_large.url} alt={gif.title}/>
-            {/* Overlay */}
-            <div className="card-img-overlay d-flex justify-content-center align-items-center">
+            <img className="card-img" height={gif.images.downsized_large.height} src={gif.images.downsized_large.url} alt={gif.title}/>
+            <div className="overlay"></div>
+            <div className="card-img-overlay d-inline-flex justify-content-center align-items-center">
                 <div className="text-overlay">
-                    <button className="overlay" onClick={toggleLike}>
+                    <button onClick={toggleLike}>
                         {isLiked ?
                             (<i className="fas fa-heart"></i>) :
                             (<i className="far fa-heart"></i>)
