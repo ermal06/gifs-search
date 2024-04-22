@@ -68,7 +68,7 @@ export default function Search() {
     };
     return (
         <div className={gifs.length > 0 ? "container" : "container d-flex justify-content-center align-items-center vh-100"}>
-            <div className="search m-2">
+            <div className="search">
                 <div className="row align-items-center">
                     <div className="col-md-9">
                         <div className="search-2"><i className='bx bxs-map'></i>
@@ -94,7 +94,7 @@ export default function Search() {
             </div>
 
             {gifs.length > 0 && (
-                <div className="search-results m-2">
+                <div className="search-results">
                     <ColumnContainer gifs={gifs} lastModifiedTimes={lastModifiedTimes} />
 
                     <div className="d-flex justify-content-center py-3">
